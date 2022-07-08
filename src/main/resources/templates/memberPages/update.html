@@ -1,23 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: head ('정보수정')">
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
-<body>
-<h2>정보수정</h2>
-<form action="/member/update" method="post" name="updateForm">
-    <input type="hidden" th:value="${updateMember.id}" name="id"><br>
-    이메일: <input type="text" th:value="${updateMember.memberEmail}" name="memberEmail" readonly> <br>
-    비밀번호: <input type="text" id="memberPassword" name="memberPassword"> <br>
-    이름: <input type="text" th:value="${updateMember.memberName}" name="memberName" readonly> <br>
-    나이: <input type="text" th:value="${updateMember.memberAge}" name="memberAge" readonly><br>
-    전화번호: <input type="text" id="memberMobile" th:value="${updateMember.memberMobile}" name="memberMobile"><br>
-    프로필: <input type="file" id="memberProfile" th:value="${updateMember.memberProfile}" name="memberProfile">
-    <input type="button" th:onclick="update()" value="정보수정">
-    <input type="button" th:onclick="updateAjax()" value="정보수정(put)">
-</form>
+<body class="text-center d-flex flex-column h-100">
+<header th:replace="layout/header :: head"></header>
+
+<main class="form-signing"></main>
+<div class="Container border rounded flex-md-row mb-4 shadow-sm h-md-250">
+    <h2>정보수정</h2>
+    <form action="/member/update" method="post" name="updateForm">
+        <input type="hidden" th:value="${updateMember.id}" name="id"><br>
+        <!-- ID -->
+        <div>
+            <h3 class="join_title">
+                <label for="memberEmail">이메일</label> <br>
+            </h3>
+            <span class="box_int_memberEmail">
+                <input type="text" name="memberEmail" th:value="${updateMember.memberEmail}" id="memberEmail" readonly>
+            </span>
+            <span id="email-dup-result"></span> <br>
+        </div>
+
+        <!-- PW -->
+        <div>
+            <h3 class="join_title">
+                <label for="memberPassword">비밀번호</label> <br>
+            </h3>
+            <label>
+                 <span class="box_int_memberPassword">
+                    <input type="password" th:value="${updateMember.memberPassword}" id="memberPassword" name="memberPassword" readonly>
+                </span> <br>
+            </label>
+            <span id="password-check-result"></span> <br>
+        </div>
+
+        <!-- PW2 -->
+        <div>
+            <h3 class="join_title">
+                <label for="memberPassword">비밀번호</label> <br>
+            </h3>
+            <label>
+                 <span class="box_int_memberPassword">
+                    <input type="password" th:value="${updateMember.memberPassword2}" id="memberPassword2" name="memberPassword2" readonly>
+                </span> <br>
+            </label>
+            <span id="password-check-result2"></span> <br>
+        </div>
+
+        <!-- NAME -->
+        <div>
+            <h3 class="join_title">
+                <label for="memberName">이름</label> <br>
+            </h3>
+            <label>
+                <span class="box_int_memberName">
+                    <input type="text" th:value="${updateMember.memberName}" id="memberName" name="memberName" readonly>
+                </span> <br>
+            </label>
+        </div>
+
+        <!-- Age -->
+        <div>
+            <h3 class="join_title">
+                <label for="memberAge">나이</label> <br>
+            </h3>
+            <label>
+                <span class="box_int_memberAge">
+                    <input type="text" th:value="${updateMember.memberAge}" name="memberAge" id="memberAge" readonly> <br>
+                </span>
+            </label>
+        </div>
+
+        <!--Mobile-->
+        <div>
+            <h3 class="join_title">
+                <label for="memberMobile">전화번호</label> <br>
+            </h3>
+            <label>
+                <span class="box_int_memberMobile">
+                  <input type="text" id="memberMobile" th:value="${updateMember.memberMobile}" name="memberMobile"><br>
+                </span>
+            </label>
+        </div>
+
+        <!--Profile-->
+        <div>
+            <h3 class="join_title">
+                <label for="memberProfile">프로필</label> <br>
+            </h3>
+            <label>
+                <span class="box_int_memberProfile">
+                    <input type="file" id="memberProfile" th:value="${updateMember.memberProfile}" name="memberProfile">
+                </span>
+            </label>
+        </div>
+
+        <div class="btn_area">
+            <input type="button" th:onclick="update()" value="정보수정">
+            <input type="button" th:onclick="updateAjax()" value="정보수정(put)">
+        </div>
+    </form>
+</div>
 </body>
 <script th:inline="javascript">
     const updateByAjax = () => {
@@ -26,6 +112,7 @@
         const memberName = [[${updateMember.memberName}]];
         const memberAge = [[${updateMember.memberAge}]];
         const memberPassword = document.getElementById("memberPassword").value;
+        const memberPassword2 = document.getElementById("memberPassword2").value;
         const memberMobile = document.getElementById("memberMobile").value;
         const memberProfile = document.getElementById("memberProfile").value;
         // JSON 형식으로 보냄
@@ -35,6 +122,7 @@
             memberName: memberName,
             memberAge: memberAge,
             memberPassword: memberPassword,
+            memberPassword2: memberPassword2,
             memberMobile: memberMobile,
             memberProfile: memberProfile
         });

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@Table(name = "member_table")
+@Table(name = "member_test_table")
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,8 @@ public class MemberEntity {
 
     @Column(length = 30)
     private String memberMobile;
+
+    // BoardEntity하고 연관관계 적용하는 코드 추가 하고
 
     public static MemberEntity toSaveEntity(MemberDTO memberDTO) {
         MemberEntity memberEntity = new MemberEntity();

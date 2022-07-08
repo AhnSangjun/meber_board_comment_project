@@ -4,7 +4,7 @@ import com.its.member.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-;
+
 
 @Data
 @NoArgsConstructor
@@ -23,6 +23,12 @@ public class MemberDTO {
         this.memberName = memberName;
         this.memberAge = memberAge;
         this.memberMobile = memberMobile;
+    }
+
+    public MemberDTO(String email1, String pw1, String name1) {
+        this.memberEmail = memberEmail;
+        this.memberPassword = memberPassword;
+        this.memberName = memberName;
     }
 
     public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
